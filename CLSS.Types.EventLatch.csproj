@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Authors>TonyGiang</Authors>
+    <Description>A synchronisation aid object for single-threaded context. A part of the C# Language Syntactic Sugar suite.</Description>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/tonygiang/CLSS.Types.EventLatch</RepositoryUrl>
+    <PackageTags>CLSS</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CLSS.Constants.NoOp" Version="*" />
+    <PackageReference Include="CLSS.Types.ValueRange" Version="*" />
+  </ItemGroup>
+
+</Project>
