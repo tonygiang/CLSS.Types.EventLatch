@@ -6,7 +6,7 @@ Multi-threading environments are not the only places where the need to synchroni
 
 In such situations, the parallelization tools in the .NET Base Class Library does not provide a solution, as locking in the same thread will only prevent all other code paths in the same thread from running. In order to ensure some actions will only execute upon the completion of multiple actions executing in unpredictable order, you can typically keep track of some variables paths and manually set and check their values at each of said unpredictable code paths. This approach however can be verbose, requires hard-coding and scales up badly as more conditions emerges.
 
-```
+```csharp
 /// Fields accessible from all 3 code paths
 public bool Path1Completed = false;
 public bool Path2Completed = false;
@@ -40,7 +40,7 @@ void SubsequentAction() { }
 
 Inspired by Java's [`CountDownLatch`](https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/CountDownLatch.html) class, this package provides the `EventLatch` type that abstracts away the synchronisation logic so that synchronisation logic becomes shorter to write and more expressive to read.
 
-```
+```csharp
 using CLSS;
 
 /// Field accessible from all 3 code paths
@@ -72,7 +72,7 @@ void Path3()
 
 `EventLatch` does not automatically reset count when it reaches 0 count or lower. You have to manually call the `Reset` method from a latch to do set the `CurrentCount` property to the same value as the `StartingCount` property. The decision to do this or not is left up to you.
 
-```
+```csharp
 using CLSS;
 
 // This enables auto-resetting
@@ -85,7 +85,7 @@ OnAll3PathsCompleted.OnConditionMet -= OnAll3PathsCompleted.Reset;
 
 An overload of the `Reset` method takes in a new starting count number, which will set both `CurrentCount` and `StartingCount` to that argument.
 
-```
+```csharp
 using CLSS;
 
 OnAll3PathsCompleted.Reset(newStartingCount);
@@ -96,7 +96,7 @@ OnAll3PathsCompleted.Reset();
 
 You can try to invoke the `OnConditionMet` event with the same condition as `Signal` (current count number must be 0 by default) without decrementing `CurrentCount`.
 
-```
+```csharp
 using CLSS;
 
 OnAll3PathsCompleted.CurrentCount = 1;
@@ -115,7 +115,7 @@ By default, `OnConditionMet` is called by a signal if `CurrentCount` is 0, but t
 
 `ConditionRange` is a `ValueRange<int>` - [a CLSS type](https://www.nuget.org/packages/CLSS.Types.ValueRange) that this package depends on.
 
-```
+```csharp
 using CLSS;
 
 // This lets the latch continue to execute OnConditionMet on a signal call past 0 count
@@ -124,7 +124,7 @@ OnAll3PathsCompleted.ConditionRange = new ValueRange<int>(int.MinValue, 0);
 
 `ConditionRange` can also be initialized upon construction as the second optional argument.
 
-```
+```csharp
 using CLSS;
 
 // Execute everytime new person joins, starting from the 5th person
